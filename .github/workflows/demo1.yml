@@ -1,9 +1,20 @@
 name: Events Demo 1
 on:
   pull_request:
+    # Activity types:
+    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
     types:
       - opened
   workflow_dispatch:
+  push:
+    # Event filters:
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
+    branches:
+      - main
+      - "dev-*" # dev-new dev-this-is-new, but not dev-new/issue2
+      - "feat/**" # feat/new feat/new/button
+    paths-ignore:
+      - ".github/workflows/*"
 jobs:
   deploy:
     runs-on: ubuntu-latest
